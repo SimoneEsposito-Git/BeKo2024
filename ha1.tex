@@ -117,4 +117,38 @@ Aufgabe 1:\quad\textsc{\textbf{Turing-Maschinen Analysieren}}
 \end{enumerate}
 \newpage
 Aufgabe 2:\quad \textsc{\textbf{Turing-Maschinen Konstruieren}}
+\[ M = (Z = \{z_0, z_1, z_2, z_3, z_4, z_e\}, \Sigma = \{a\}, \Gamma = \{a,X,\square\},\delta, z_0, \square, E = \{z_e\}) \]
+
+\begin{center}
+	\begin{tabular}{c|ccc}
+	$\delta$ & a & X & $\square$ \\ \hline
+	$z_0$ & $(z_1, a, R)$ & $\bot$ & $\bot$ \\
+	$z_1$ & $(z_2, X, R)$ & $(z_1, X, R)$ & $(z_e, \square, N)$ \\
+	$z_2$ & $(z_3, a, R)$ &$(z_2,X,R)$ & $(z_4, \square, L)$ \\
+	$z_3$ & $(z_2, X, R)$ & $(z_3,X,R)$ & $\bot$ \\
+	$z_4$ & $(z_4, a, L)$ & $(z_4, X, L)$ & $(z_0, \square, R)$ \\
+	\end{tabular}
+\end{center}
+
+\begin{align*}
+    &z_0aaaa  &&\tstep  \\
+	a&z_1aaa   &&\tstep  \\
+	aX&z_2aa    &&\tstep  \\
+	aXa&z_3a     &&\tstep  \\
+	aXaX&z_2\square  &&\tstep  \\
+	aXa&z_4X     &&\tstep[5]  \\
+	&z_0aXaX  &&\tstep  \\
+	a&z_1XaX   &&\tstep  \\
+	aX&z_1aX    &&\tstep  \\
+	aXX&z_2X     &&\tstep  \\
+	aXXa&z_2\square  &&\tstep  \\
+	aXX&z_4X     &&\tstep[5]  \\
+	&z_0aXXX  &&\tstep  \\
+	a&z_1XXX   &&\tstep  \\
+	aX&z_1XX    &&\tstep  \\
+	aXX&z_1X     &&\tstep  \\
+	aXXX&z_1\square  &&\tstep  \\
+	aXXX&z_e\square     &&\tstep  \\
+\end{align*}
+
 \end{document}
