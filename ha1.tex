@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc,automata}
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Beispiel}
+\newtheorem*{remark}{Anmerkung}
+\newtheorem{reduction}{Reduktion}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+\newcommand{\tstep}[1][1]{\vdash^#1_M} % Turing Schritt
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+\title{X. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\author{Gruppe XYZ} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+\newpage
+Aufgabe 1:\quad\textsc{\textbf{Turing-Maschinen Analysieren}}
+\begin{enumerate}
+    \item[(a)]
+    \begin{align*}
+    &z_0abc  &&\tstep  \\
+    a&z_0bc   &&\tstep  \\
+    ab&z_1c    &&\tstep  \\
+    abc&z_2\square     &&\tstep  \\
+    ab&z_3c    &&\tstep  \\
+    a&z_3bc   &&\tstep  \\
+    &z_3abc  &&\tstep  \\
+    &z_3\square bbc  &&\tstep \\
+    &z_4bbc
+    \end{align*}
+    
+    \item[(b)] 
+    Wenn $M$ in $z_3$ kommt, werden danach alle 'a's mit 'b's ersetzt (von rechts nach links) bis alle buchstaben durgegangen werden, worauf $M$ im zustand $z_4$ kommt. Dann wird der Buchstabe rechts vom Lesekopf entweder ein 'b' oder ein 'c' sein.
+
+    Aus $\delta$ folgt offensichtlich: $M$ hält falls $w\in \{a^nb^mc^k\mid n,m,k \in \NN\}$. Jedes wort was sich nicht and der Reihenfolge hält, terminiert ohne den Endzustand zu erreichen
+    \item[(c)] 
+    Wir betrachten das wort \enquote{aaaaaaaaa}, also $n=9$. Die Konfigurationsfolge lautet:
+    \begin{align*}
+    &z_0aaaaaaaaa          &&\tstep[9]  \\
+    aaaaaaaaa&z_0         &&\tstep  \\
+    aaaaaaaa&z_3a         &&\tstep[9]  \\
+    &z_3\square bbbbbbbbb  &&\tstep  \\
+    &z_4bbbbbbbbb
+\end{align*}
+    Da $9+1+9+1 = 20 > 18.5 = 1,5\cdot 9 + 5$ gilt die gegebene Formel nicht immer. Die richtige formel Lautet: $2n+2$
+\end{enumerate}
+\newpage
+Aufgabe 2:\quad \textsc{\textbf{Turing-Maschinen Konstruieren}}
+\end{document}

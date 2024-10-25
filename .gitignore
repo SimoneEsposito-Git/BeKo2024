@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# LaTeX Workshop extension
+LaTeX_out/*.aux
+LaTeX_out/*.fdb_latexmk
+LaTeX_out/*.fls
+LaTeX_out/*.log
+LaTeX_out/*.gz
