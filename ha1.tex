@@ -101,11 +101,11 @@ Aufgabe 1:\quad\textsc{\textbf{Turing-Maschinen Analysieren}}
     \end{align*}
     
     \item[(b)] 
-    Wenn $M$ in $z_3$ kommt, werden danach alle 'a's mit 'b's ersetzt (von rechts nach links) bis alle buchstaben durgegangen werden, worauf $M$ im zustand $z_4$ kommt. Dann wird der Buchstabe rechts vom Lesekopf entweder ein 'b' oder ein 'c' sein.
+    Wenn $M$ in $z_3$ kommt, werden danach alle 'a's mit 'b's ersetzt (von rechts nach links) bis alle Buchstaben durchgegangen werden, wodurch $M$ in Zustand $z_4$ gelangt. Dann wird der Buchstabe rechts vom Lesekopf entweder ein 'b' oder ein 'c' sein.
 
-    Aus $\delta$ folgt offensichtlich: $M$ hält falls $w\in \{a^nb^mc^k\mid n,m,k \in \NN\}$. Jedes wort was sich nicht and der Reihenfolge hält, terminiert ohne den Endzustand zu erreichen
+    Aus $\delta$ folgt offensichtlich: $M$ hält falls $w\in \{a^nb^mc^k\mid n,m,k \in \NN\}$. Jedes Wort was sich nicht an die Reihenfolge hält, terminiert ohne den Endzustand zu erreichen.
     \item[(c)] 
-    Wir betrachten das wort \enquote{aaaaaaaaa}, also $n=9$. Die Konfigurationsfolge lautet:
+    Wir betrachten das Wort \enquote{aaaaaaaaa}, also $n=9$. Die Konfigurationsfolge lautet:
     \begin{align*}
     &z_0aaaaaaaaa          &&\tstep[9]  \\
     aaaaaaaaa&z_0         &&\tstep  \\
