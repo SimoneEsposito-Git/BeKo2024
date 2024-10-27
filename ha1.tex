@@ -130,25 +130,25 @@ Aufgabe 2:\quad \textsc{\textbf{Turing-Maschinen Konstruieren}}
 	\end{tabular}
 \end{center}
 
-\begin{align*}
-    &z_0aaaa  &&\tstep  \\
-	a&z_1aaa   &&\tstep  \\
-	aX&z_2aa    &&\tstep  \\
-	aXa&z_3a     &&\tstep  \\
-	aXaX&z_2\square  &&\tstep  \\
-	aXa&z_4X     &&\tstep[5]  \\
-	&z_0aXaX  &&\tstep  \\
-	a&z_1XaX   &&\tstep  \\
-	aX&z_1aX    &&\tstep  \\
-	aXX&z_2X     &&\tstep  \\
-	aXXa&z_2\square  &&\tstep  \\
-	aXX&z_4X     &&\tstep[5]  \\
-	&z_0aXXX  &&\tstep  \\
-	a&z_1XXX   &&\tstep  \\
-	aX&z_1XX    &&\tstep  \\
-	aXX&z_1X     &&\tstep  \\
-	aXXX&z_1\square  &&\tstep  \\
-	aXXX&z_e\square     &&\tstep  \\
-\end{align*}
+Erklärung:
+
+\begin{itemize}
+	\item Das symbol $X$ wird von der Maschine immer ignoriert (siehe $\delta$ für $X$).
+	\item $z_0$: verifiziert, dass das Word mit 'a' anfängt, 
+	sonst hält die Maschine ohne den Endzustand zu erreichen.
+	\item $z_1$: falls das Wort nur einen 'a' enthält, wird es akzeptiert. 
+	Sonst wird das erste 'a' durch 'X' markiert und die Maschine geht in $z_2$.
+	\item $z_2$ und $z_3$: halbieren die 'a's in $w$ indem jedes zweite 'a' von $z_3$
+	mit 'X' markiert wird. Da das word mit 'a' anfängt, wenn die Maschine im zustand $z_3$
+	am Ende des Wortes ankommt (z.B: $aXaXaz_3$), heißt es, dass das Wort eine ungerade 
+	Anzahl von 'a's enthält. Somit hält die Maschine ohne den Endzustand zu erreichen.
+	(außer wenn das Wort nur ein 'a' enthält, dann wird es akzeptiert, siehe $z_1$).
+	\item $z_4$: Falls das Wort eine gerade Anzahl von 'a's enthält, kommt die Maschine
+	in $z_4$ an, was den Lesekopf wieder auf das erste 'a' setzt und die Maschine in $z_0$ geht.
+	\item Jetzt wird das prozess von halbierung wiederholt, bis das Wort nur ein 'a' enthält.
+	Falls das Wort an einer Iteration eine ungerade Anzahl von 'a's enthält, hält die Maschine ohne den Endzustand zu erreichen.
+\end{itemize}
+Dies funktioniert, da:
+\[x = 2^n \Leftrightarrow \frac{x}{2} = 2^{n-1} \Leftrightarrow \frac{x}{2^i} = 2^{n-i} \Leftrightarrow \frac{x}{2^n} = 2^{n-n} = 1\]
 
 \end{document}
