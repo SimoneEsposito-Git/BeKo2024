@@ -137,4 +137,19 @@ Aufgabe 2: \quad \textsc{\textbf{Turing-Berechenbarkeit}}
   weitere rationale Zahl auch bis zu einem beliebigen Grad von Präzision berechenbar ist. 
 \end{enumerate}
 
+\newpage
+Aufgabe 3: \quad \textsc{\textbf{LOOP- und GOTO-Programme}}
+
+\begin{enumerate}
+     \item[(a)] Nein, bei den Eingabewerten $x_1$ $\geq$ $x_2$ nicht. 
+     Bei $P_1$ wird der LOOP nicht ausgeführt, somit wird auch kein Wert von $x_2$ für $x_0$ zugewiesen.
+     
+     \item[(b)] Nein, $P_2$ befindet sich in einer Endlosschleife bei jedem Eingabewert $x_2 > x_1$, da der Wert $x_3$ in $M_1$ nie dekrementiert wird. 
+
+    In $P_1$ ist das dekrementieren einer Laufvariable in einem LOOP impliziert, somit befinden sich $P_1$ und $P_2$ in unterschiedlichen Endzuständen.
+
+    \item[(c)] Ja, im Fall von $x_2 < x_1$ ist $x_3 = max(0, x_2 - x_1)$ immer $0$. Bei $P_1$ wird der LOOP nicht ausgeführt und bei $P_2$ wird direkt zu $M_2$ gesprungen und das Programm terminiert. Somit wird bei beiden Programmen der implizierte Anfangswert von $x_0 = 0$ angenommen. 
+
+\end{enumerate}
+
 \end{document}
