@@ -1,0 +1,354 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc,automata}
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Beispiel}
+\newtheorem*{remark}{Anmerkung}
+\newtheorem{reduction}{Reduktion}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+\title{X. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\author{Gruppe XYZ} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+
+% Hier beginnt der Hauptteil des Dokuments, in dem Sie Ihre Lösungen formulieren können.
+% Bitte geben Sie nicht die folgenden Beispiele mit ab.
+
+
+\section{Grundlegendes}
+Einzelne Zeilenumbrüche
+sind 
+Latex egal.
+Mit einem doppelten Umbruch
+
+erzeugt man einen neuen Absatz.
+Der Übersicht halber sollte man die Zeilen im Latex-Quellcode trotzdem nicht zu lang machen.
+
+Mit newcommand lassen sich eigene Befehle definieren:
+\newcommand{\sfe}{supercalifragilisticexpialigetisch}
+Jede \sfe{}e Instanz lässt sich mit einem \sfe{}en Algorithmus in \sfe{}er Zeit lösen.
+(Sehr nützlich, wenn man später Dinge umbenennen will.)
+
+\section{Formatierung}
+\textit{Ich bin kursiv}.
+\textbf{Ich bin fett}.
+\textsc{Ich bin in Kapitälchen} (für Problemnamen).
+\enquote{Ich stehe in Anführungszeichen.}
+
+Hier kommt eine Formel: $a = b + c$.
+Die nächste Formel kriegt mehr Platz und wird am \&-Zeichen ausgerichtet:\footnote{Man kann auch an mehreren Stellen ausrichten.}
+\begin{align*}
+f : \RR &\to \RR \\
+x &\mapsto x^2
+\end{align*}
+
+Ohne Sternchen gibt's Zeilennummern:
+\begin{align}
+a &= 14^2 + 17^2 \\
+\sqrt{17} &> 1 \label{eq:wurzel}
+\end{align}
+
+Hoch- und tiefgestellt wird so: $x_1, x^2, x_{i,j}^t$
+
+Brüche schreibt man $\frac{n!}{k!(n-k)!}$ oder im Fließtext auch einfach $n!/(k!(n-k)!)$.
+
+Ein paar weitere Operatoren:
+\begin{align*}
+\sum_{i=1}^n \int_a^b \lim_{x \to \infty} \max_{y \geq x} \left\{ x \cdot y \middle| \left[ x^2 - y^2 \right] \subseteq \tilde{\Omega} \right\}
+\end{align*}
+
+Wer den Namen für ein bestimmtes Symbol sucht schaut am besten auf http://detexify.kirelabs.org
+
+Wenn man Text innerhalb einer Formel einfügen möchte, muss dieser mit \textit{\textbackslash text} ausgezeichnet werden:
+\begin{align*}
+V &= \frac{4}{3} \pi z^3 & \text{Volumen einer Kugel mit Radius $z$}\\
+V &= \pi z^2 a = \pi zza & \text{Volumen einer Pizza mit Radius $z$ und Dicke $a$}
+\end{align*}
+
+Versuche Zeilenumbrüche an mathematischen Ausdrücken wie z.\ B.\ dem $G$ hier zu vermeiden.
+Verwende die Tilde im Latex-Code, um das zu vermeiden, wie folgt.
+
+Versuche Zeilenumbrüche an mathematischen Ausdrücken wie z.\ B.\ dem~$G$ hier zu vermeiden.
+
+Und noch was: Sätze sollten auch nicht mit mathematischen Ausdrücken beginnen.
+Also, statt \enquote{$G$ ist ein Baum.} besser \enquote{Der Graph~$G$ ist ein Baum.}.
+
+
+\section{Theoreme \& Co}
+
+\begin{theorem}
+	\label{thm:exponentialzeit}
+	\textsc{Vertex Cover} ist lösbar in exponentieller Zeit.
+\end{theorem}
+\begin{proof}
+	Wir geben später \cref{alg:VC} für \textsc{Vertex Cover} an.
+	Dieser läuft offensichtlich in exponentieller Zeit.
+	(Dies ist kein echter Beweis!)
+\end{proof}
+
+\begin{corollary}\label{thm:entscheidbar}
+	\textsc{Vertex Cover} ist entscheidbar.
+\end{corollary}
+
+\begin{example}
+	Ein interessantes Beispiel.
+\end{example}
+
+\begin{remark}
+	Eine Anmerkung.
+\end{remark}
+
+
+\section{Abbildungen}
+
+Beispiele für Graphen sind in \cref{fig:graph} abgebildet.
+Hierbei ist \cref{fig:directed_graph} ein \textit{gerichteter Graph} (auch \textit{Digraph}).
+
+Wer zu faul ist, die Bilder in tikz zu erstellen, kann sich auch http://ipe.otfried.org/ anschauen.
+
+\begin{figure}[t]
+	\centering
+ 	\tikzstyle{alter}=[circle, minimum size=16pt, draw, inner sep=1pt] 
+	\tikzstyle{majarr}=[draw=black]
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\begin{tikzpicture}[auto, >=stealth',shorten <=1pt, shorten >=1pt]
+			\node[alter] at (0,0) (a) {$a$};
+			\node[alter, right = 8ex of a] (b) {$b$};
+			\node[alter, right = 8ex of b] (c) {$c$};
+
+			\draw[majarr] (a) edge (b);
+			\draw[majarr] (b) edge (c);
+			\draw[majarr] (a)[bend left=43] edge (c);
+		\end{tikzpicture}
+		\caption{ungerichtet}
+		\label{fig:undirected_graph}
+	\end{subfigure}  
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\begin{tikzpicture}[auto, >=stealth']
+			\tikzstyle{majarr}=[draw=black,->,shorten <=1.5pt, shorten >=1.5pt]
+			\node[alter] at (0,0) (a) {$a$};
+			\node[alter, right = 8ex of a] (b) {$b$};
+			\node[alter, right = 8ex of b] (c) {$c$};
+
+			\draw[majarr] (a) edge node[midway, anchor=south] {$\scriptstyle 1$} (b);
+			\draw[majarr] (b) edge node[midway, anchor=south] {$\scriptstyle 2$} (c);
+			\draw[majarr] (a) edge[bend left=43] node[midway, anchor=south] {$\scriptstyle 3$} (c);
+		\end{tikzpicture}
+		\caption{gerichtet}
+		\label{fig:directed_graph}
+	\end{subfigure}
+\caption{Beispiele für Graphen. Achtung: \textit{label} immer \textbf{nach} \textit{caption}, sonst gehen die Verweise kaputt.}
+\label{fig:graph}
+\end{figure}
+
+
+
+\Cref{tab:some-table} ist eine große Tabelle.
+Normalerweise versucht Latex selbst, einen geeigneten Ort für Abbildungen zu finden.
+
+\begin{table}
+	\caption{\normalfont
+		Ergebnisse der Laufzeitexperimente. Alle Zeiten sind in Sekunden angegeben.
+		Im Gegensatz zu Abbildungen sind Tabellenüberschriften über der Tabelle zu platzieren.
+	}
+	\centering
+	\footnotesize
+	\renewcommand{\tabcolsep}{7pt}
+	\begin{tabular}{ll rr rrr}
+	\toprule
+	&	file 				& $n$ 		& $m$  		& \texttt{WCC} [s]&\texttt{HKN} [s]	& \texttt{CHLS} [s] \\
+	\midrule
+	\multirow{4}{*}{\rotatebox[origin=c]{90}{Clustering}} 
+		& email 				& 1K	 	& 5K	 	& 0.67 		& 48.75 		& 2.51 	 \\
+		& hep-th 				& 7K	 	& 15K	 	& 0.43 		& 1.35 			& 3.75 	 \\
+		& netscience 			& 1K	 	& 2K	 	& 0.24 		& 0.37 			& 0.07 	 \\
+		& PGPgiantcompo 		& 10K	 	& 24K	 	& 0.67 		& 1.70 			& 3.51 	 \\
+	\midrule
+	\multirow{4}{*}{\rotatebox[origin=c]{90}{Co-author}} 
+		& citationCiteseer 		& 268K	 	& 1.1M		& 21.46 	& 83.90 		& --- 	 \\
+		& coAuthorsCiteseer 	& 227K	 	& 0.8M	 	& 11.46 	& 50.35 		& --- 	 \\
+		& coAuthorsDBLP 		& 289K	 	& 0.9M		& 15.76 	& 78.51 		& --- 	 \\
+		& coPapersCiteseer 		& 434K	 	& 16M		& ---		& ---			& --- 	 \\
+	\bottomrule
+	\end{tabular}
+		\label{tab:some-table}
+\end{table}
+
+
+\section{Pseudocode}
+Pseudocode kann manchmal hilfreich zur besseren Darstellung des Algortihmus sein.
+Allerdings kann man sich auch schnell darin verlieren.
+Wenn der Pseudocode praktisch eine leicht angepasste Kopie von echtem Programm-Code (z.B.\ Python) ist, dann ist er sehr schwer verständlich und oft nicht hilfreich.
+Insbesondere, wenn Ihr eine Aufgabe mit dynamischer Programmierung löst, kann Pseudocode hinderlich sein.
+
+\begin{algorithm}[H]
+\KwData{Ein Graph~$G=(V,E)$.}
+\KwResult{Größe eines kleinsten Vertex Covers.}
+
+\For{$k = 0$ \textbf{to} $|V|$}{
+	\ForEach{$V' \subseteq V$ with $|V'| = k$}{
+		sol $\gets$ true\;
+		\ForEach{$\{u,v\} \in E$}{
+			\If{$u \notin V' \land v \notin V'$}{
+				sol $\gets$ false\;
+			}
+		}
+		\If{sol = true}{
+			\Return $k$		
+		}
+	}
+}
+\caption{TestVC - Ein Beispielalgorithmus für Vertex Cover.}
+\label{alg:VC}
+\end{algorithm}
+\vspace*{.3cm}
+
+
+\noindent Der folgende Algorithmus \cref{alg:ex} läuft zum Beispiel in~$O(\log k)$ Zeit.
+
+\begin{algorithm}[H]
+\While{$k \neq 0$}{
+	\eIf{$k=1$}{$k=0$}{$k=\lceil\frac{k}{2}\rceil$}
+}
+\caption{Ein Beispielalgorithmus mit einer WHILE-Schleife und einem IF-THEN-ELSE-Konstrukt.}
+\label{alg:ex}
+\end{algorithm}
+
+\section{Automaten und Turingmaschinen}
+
+
+Nachfolgend der DFA von Folie 8 und die TM von Folie 14:
+
+
+$M=(\{z_0,z_1,z_2\}, \{ 0,1\}, \delta, z_0, \{z_2\})$ mit
+\begin{center}
+	\begin{tabular}[t]{c|ccc}
+		$\delta$ & $z_0$ & $z_1$ & $z_2$ \\ \hline
+		0 & $z_0$ & $z_2$ & $z_1$ \\
+		1 & $z_1$ & $z_0$ & $z_2$
+	\end{tabular}
+\end{center}
+
+oder
+
+$M=(\{z_0,z_1,z_2,z_e\}, \Sigma=\{ 0,1\}, \Gamma =\{ 0,1,\Box\},\delta, z_0, \Box,\{ z_e\})$ mit
+\begin{center}
+	\begin{tabular}{c|ccc}
+		$\delta$ & 0 & 1 & $\Box$ \\ \hline
+		$z_0$ & $(z_0,0,R)$ & $(z_0,1,R)$ & $(z_1,\Box,L)$ \\
+		$z_1$ & $(z_2,1,L)$ & $(z_1,0,L)$ & $(z_e,1,N)$ \\
+		$z_2$ & $(z_2,0,L)$ & $(z_2,1,L)$ & $(z_e,\Box,R)$ \\
+	\end{tabular}
+\end{center}
+
+Wer will, kann auch die Zustandsgraphen angegeben (auch wenn wir empfehlen, diese per Hand zu malen):
+
+\begin{tikzpicture}[auto,>=stealth',scale=2]
+	\tikzstyle{sstate}=[state,inner sep=0pt,minimum size=18pt]
+	\node[sstate,initial by arrow, initial text=] (z0) at (0,0) {$z_0$};
+	\node[sstate] (z1) at (2,0) {$z_1$};
+	\node[sstate, accepting] (z2) at (4,0) {$z_2$};
+	
+	\path[->] (z0) edge[bend left] node {$1$} (z1);
+	\path[->] (z0) edge[loop above] node {$0$} (z0);
+	
+	\path[->] (z1) edge[bend left] node {$0$} (z2);
+	\path[->] (z1) edge[bend left] node {$1$} (z0);
+
+	\path[->] (z2) edge[bend left] node {$0$} (z1);
+	\path[->] (z2) edge[loop above] node {$1$} (z2);
+\end{tikzpicture}
+
+\begin{tikzpicture}[auto,>=stealth',scale=1]
+	\tikzstyle{every node}=[font=\small]
+	\tikzstyle{tmnode}=[inner sep=0pt]
+	\node[tmnode,state,initial by arrow, initial text=]	(z0) at (-2,0) {$ z_0 $};
+	\node[tmnode,state]	(z1) at (1,0) {$ z_1 $};
+	\node[tmnode,state]	(z2) at (4,0) {$ z_2 $};
+	\node[tmnode,state, accepting]	(ze) at (7,0) {$ z_e $};
+	\path[->] (z0) edge [loop above] node {$\begin{array}{c}0 \colon 0, R\\ 1\colon 1 , R\end{array}$} (z0);
+	\path[->] (z0) edge [] node {$\Box \colon \Box , L$} (z1);
+	\path[->] (z1) edge [loop above] node {$1 \colon 0 , L$} (z1);
+	\path[->] (z1) edge [] node {$0 \colon 1 , L$} (z2);
+	\path[->] (z2) edge [loop above] node {$\begin{array}{c}0 \colon 0 , L\\1\colon 1 , L\end{array}$} (z2);
+	
+	\path[->] (z1) edge[bend right=20] node[below] {$\Box\colon 1, N$} (ze);
+	\path[->] (z2) edge node {$\Box\colon \Box, R$} (ze);
+\end{tikzpicture}
+
+\end{document}

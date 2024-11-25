@@ -1,0 +1,172 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage[T1]{fontenc}  
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily,
+    numbers=none,
+    breaklines=true,
+    tabsize=4,
+    showstringspaces=false,
+    mathescape=true % Aktiviert LaTeX-Befehle innerhalb der Umgebung
+}
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc,automata}
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Beispiel}
+\newtheorem*{remark}{Anmerkung}
+\newtheorem{reduction}{Reduktion}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+\newcommand{\tstep}[1][1]{\vdash^#1_M} % Turing Schritt
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+\title{3. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\author{Gruppe HA-EH-Fr-10-12-MA544-3} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+\newpage
+Aufgabe a:\quad \textsc{\textbf{LOOP- und WHILE-Programmierung}}
+\\ \\
+Zuerst schauen wir uns den Basisfall $f(0,y)$ an: \\
+Falls $y = 0$: \\
+Da $0 = 0 \cdot k$ für alle $k \in \NN$ ist, gilt $f(0,0) = 1$\\
+Falls $y > 0$:\\
+Dann gibt es kein $k \in \NN$, wobei $y = 0 \cdot k$. Also $f(0,y) = 0$ \\ \\ 
+\\
+Als nächstes schauen wir uns die rekursive Definition an: \\ 
+\[ f(x+1,y) = f (x,y) + teilbar(y, x+1) \]
+\\
+$f(x+1,y)$ wird berechnet, indem wir zu dem vorherigen Wert $f(x,y)$, $1$ oder $0$ addieren, abhängig davon, ob $x+1$ ein Teiler von $y$ ist.
+\\
+Durch das rekurisve Aufrufen werden alle Teiler von y gezählt, im Bereich von $0$ bis $x$.
+\\ \\
+Aus der Definition ergeben sich folgende besondere Fälle:
+\\
+$f(x,x)$ ist die vollständige Anzahl der Teiler von $x$, mit Ausnahme von $x=0$, da $f(x,0) = x+1$. Denn jede Zahl $x \in \NN$ wird als Teiler von $0$ gezählt, inklusive $0$ (Siehe Basisfall $y=0$). 
+\\ \\ 
+
+\noindent LOOP Pseudocode mit Eingabe $x_1, x_2$:
+\begin{lstlisting}
+IF $x_2 = 0$ THEN                   
+    $x_0 := x_1 + 1$;    // Siehe Fall f(x,0)
+    $x_1 := 0$;       // Loopaufhalter
+END;
+$x_3 := 1$;       // 0 wird ignoriert, siehe Basisfall y > 0
+LOOP $x_1$ DO           
+    $x_4 := x_2 \bmod x_3$; //  Wenn a mod b = 0, teilt b  a
+    IF $x_4 = 0$ THEN 
+        $x_0 := x_0 + 1$; // Ergebnis wird inkrementiert
+    END;
+    $x_3 := x_3 + 1$;   
+END;
+
+
+\end{lstlisting}
+
+\newpage
+Aufgabe b:
+\\
+
+Wir erkennen, dass $g(x,y)$ $1$  zurückgibt, falls $x$ weniger als $y$ Teiler hat (Siehe $f(x,x)$ in Aufgabe $a)$).
+Es wird also $0$ zurückgegeben, wenn $x$ mindestens $y$ Teiler besitzt.
+\\ \\
+Der $\mu$ Operator von $g$, definiert die Funktion $f': \NN \rightarrow \NN:$
+
+$$f'(x) = min \{ n\ |\ g(n,x) = 0\} $$
+\\ \\ 
+Somit gibt $f' (x)$ die kleinste Zahl $n$ zurück, die mindestens $x$ Teiler hat.
+\\ \\
+Besondere Fälle: \\
+$f'(0) = 0$, da $f(0,0) = 1 \geq 0$ \\
+$f'(1) = 0$, da $f(0,0) = 1 \geq 1$\\
+\\ \\
+ 
+Aufgabe c: \\
+\\
+Wir fangen die Suche nach der kleinsten Zahl bei $x_1$ an, da keine Zahl $x$ mehr als $x$ Teiler hat. Also existiert keine Zahl $x < x_1$ die mindestens $x_1$ Teiler besitzt. 
+\begin{lstlisting}
+$x_2 := x_1$;                   
+$x_3 := P_f(x_2,x_2)$;          // $f(x_2,x_2)$ wird berechnet
+$x_4 := x_1 - x_3 $;            // $x_4 = 0$ falls $f(x_2,x_2) \geq x_1$
+
+WHILE $x_4 \neq 0$ DO
+	$x_2 := x_2 + 1$;
+	$x_3 := P_f(x_2,x_2)$;
+	$x_4 := x_1-x_3$;
+    END;
+$x_0 := x_2$;
+IF $x_1 = 1$ THEN $x_0 := 0$ END; // Siehe $f'(1)$ in Aufgabe b
+
+
+\end{lstlisting}
+
+\end{document}
