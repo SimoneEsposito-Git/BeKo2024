@@ -1,0 +1,145 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage[T1]{fontenc}  
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc,automata}
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Beispiel}
+\newtheorem*{remark}{Anmerkung}
+\newtheorem{reduction}{Reduktion}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+\newcommand{\tstep}[1][1]{\vdash^#1_M} % Turing Schritt
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+\title{4. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\author{Gruppe HA-EH-Fr-10-12-MA544-3} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+\newpage
+Aufgabe 1:\quad \textsc{\textbf{Entscheidbarkeit}}
+\vspace{20pt}\\
+Wir Zeigen dass die Sprachen $L_1, \ldots, L_n$ semi-entscheidbar sind analog zu der VL7.\\
+Da $L_1$ bis $L_n$ semi-entscheidbar sind, heißt es dass jede Sprache $\chi'_{L_i}$ 
+berechenbar durch WHILE-Programme mit einer WHILE-Schleife:
+
+\begin{algorithm}[H]
+    $x_i \leftarrow 1$\;
+    \While{$x_i \neq 0$}{
+        $P_{L_i}$\;
+    }
+    $x_0 \leftarrow 1$\;
+\end{algorithm}
+\hfill\\
+Dann können wir ein Programm Konstruiren das die Sprache $L_i$ entscheidet indem wir
+nacheinander $P_{L_j}$ für jedes $j \in \{1, \ldots, n\}$ ausführen.\\
+Da jedes $L_j$ semi-entscheidbar ist und $\Cup^n_{i=1} L_i = \Sigma^\ast$ ist,
+wird das Programm bei einer Eingabe $w\in\Sigma^\ast$ eventuell für ein $j$ terminieren. Falls $j = i$, dann geben wir 1 aus, sonst 0.
+
+\begin{algorithm}[H]
+    $x_1 \leftarrow 1$; $x_2 \leftarrow 1$; ...; $x_{n+1} \leftarrow 1$\;
+    \While{$x_1 \neq 0$ und $x_2 \neq 0$ und ... und $x_{n+1} \neq 0$}{
+        $P_{L_0}$; $P_{L_1}$; ...; $P_{L_n}$\;
+    }
+    \eIf{$x_{j+1}=1$}{$x_0=1$}{$x_0=0$}
+\end{algorithm}
+\newpage
+Aufgabe 2:\quad \textsc{\textbf{Abgeschlossenheit Semi-Entscheidbarkeit}}
+\vspace{20pt}
+\begin{enumerate}
+    \item[(a)] Gegenbeispiel: Sei 
+    \[U := \{w\in\{0,1\}^\ast\} = \{0,1\}^\ast\] 
+    Wir erkennen dass, $U$ entscheidbar (und somit auch semi-entscheidbar)
+    ist, da wir 1 ausgeben für jede Eingabe $w\in\{0,1\}^\ast$ und 0 für jede Eingabe $w\notin\{0,1\}^\ast$.
+    Aus der VL6 kennen wir außerdem das spezielle Halteproblem 
+    \[K := \{w \in \{0,1\}^\ast | M_w \text{ hält auf Eingabe }w\}\]
+    Wir erkennen, dass $K$ semi-entscheidbar ist, da wir 1 ausgeben wenn $M_w$ hält, sonst wird $M_w$ nicht halten.
+    Aus der VL6 wissen wir auch, dass $K$ unentscheidbar ist.\\
+    Offenbar gilt $K \subseteq U$, da $K$ nur aus Wörtern besteht, die aus 0 und 1 bestehen.\\
+    Wenn $U\setminus K$ semi-entscheidbar wäre, dann wäre $K$ entscheidbar (VL7), was ein Widerspruch ist.
+    \item[(b)] da $L_1$ und $L_2$ semi-entscheidbar sind, gibt es zwei Turingmaschinen $M_1$ und $M_2$
+    die Halten wenn $w\in L_1$ bzw. $w\in L_2$.\\
+    Wir können eine Turingmaschine $M$ konstruieren, die $L = \{w_1w_2 | w_1 \in L_1, w_2 \in L_2\}$ auch semi-entscheidet indem wir
+    ein Wort $w$ aufteilen in wörtern $w_{1,i} =$ Präfix der länge $i$ und $w_{2,i}=$ Suffix der länge $|w|-i$ für $i=0,1,...,|w|$.
+    Wir führen dann ein Schritt von $M_1$ auf $w_{1,i}$ und ein Schritt von $M_2$ auf $w_{2,i}$ aus für jedes $i$.
+    Falls $w\in L$ wird es nach definition von $L$ wird es ein $i$ geben sodass $w_{1,i} \in L_1$ und $w_{2,i} \in L_2$. 
+    So geben wir 1 aus, falls $M_1$ und $M_2$ beide halten, sonst wird das Programm nicht halten. Somit ist $L$ semi-entscheidbar.
+\end{enumerate}
+\newpage
+Aufgabe 3:\quad \textsc{\textbf{Nicht (co-)semi-entscheidbare Sprachen}}
+\vspace{20pt}\\
+Seien $S_i \subseteq \{0,1\}^\ast, \ i\in\NN$ alle semi- und co-semi-entscheidbare Sprachen.\\
+Wir können anhand von Diagonalisierung wie folgt eine Sprache $D$ konstruieren:
+\[D = \{w_i \in \{0,1\}^\ast| w_i \not\in S_i\}\quad i\in\NN\]
+Da kein wort $w \in D$ in $S_i$ enthalten ist, existiert keine funktion die $\chi'_D$ berechnet.\\
+Somit ist $D$ weder semi- noch co-semi-entscheidbar.
+\end{document}
