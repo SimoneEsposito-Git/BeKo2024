@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage[T1]{fontenc}  
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc,automata}
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Beispiel}
+\newtheorem*{remark}{Anmerkung}
+\newtheorem{reduction}{Reduktion}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+\newcommand{\tstep}[1][1]{\vdash^#1_M} % Turing Schritt
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+\title{4. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\author{Gruppe HA-EH-Fr-10-12-MA544-3} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+\newpage
+Aufgabe 1:\quad \textsc{\textbf{Akzeptanzproblem}}
+\vspace{20pt}\\
+Wir zeigen die Unentscheidbarkeit von  $A_0$ , indem wir das allgemeine Halteproblem  $H = \{ w\#x \mid M_w \text{ hält auf Eingabe } x \}$  darauf reduzieren.
+\\Konstruktion einer Reduktion $f$:\\
+Aus Kapitel 8, Folie 17 kennen wir $H_0 := \{w\vert w\# \in H\}$ wobei $H\leq H_0$.\\
+Ähnlich wie Kapitel 8, Folie 14: bei Eingabe $w$ berechnet $f$ das Codewort einer Maschine $M'$, die wie $M_w$ arbeitet, 
+aber in einen Endzustand übergeht, sobald $M_w$ hält (egal ob akzeptierend oder ablehnend).
+Also $H_0\leq A_0$. Somit ist $A_0$ unentscheidbar.
+\vspace{30pt}\\
+Aufgabe 2:\quad \textsc{\textbf{PCP}}\\
+
+Bei $I_1$ handelt es sich um ein unäres PCP und wir können die Lösung wie folgt finden:
+$$a(|x_1|-|y_1|) + b(|x_2|-|y_2|) = 60a - 66b = 0$$
+lässt sich lösen mit $a=11;\, b=10$ also: 
+$$x_1^{11}\cdot x_2^{10} = a^{671}\cdot a^{10} = a^{681}$$
+$$y_1^{11}\cdot y_2^{10} = a^{11}\cdot a^{670} = a^{681}$$
+
+Bei $I_2$ existiert keine lösung denn das einzige Paar was den gleichen Suffix hat ist das Paar $i=1:\,(b,ab)$, also müsste die Sequenz auf den Paar enden.\\
+Dies heißt, dass auch das obere wort auf $ab$ enden muss.\\
+Da es kein $i\in\{1,2,3,4\}$ gibt wobei $x_i$ auf $a$ endet, kann keine Wort existieren $x_i\cdot x_1$ was auf $ab$ enden und somit $y_1$ als Suffix übereinstimmen kann.
+\end{document}
