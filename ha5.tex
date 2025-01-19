@@ -97,6 +97,8 @@ Also $H_0\leq A_0$. Somit ist $A_0$ unentscheidbar.
 \vspace{30pt}\\
 Aufgabe 2:\quad \textsc{\textbf{PCP}}\\
 
+\begin{enumerate}
+  \item[(a)] 
 Bei $I_1$ handelt es sich um ein unäres PCP und wir können die Lösung wie folgt finden:
 $$a(|x_1|-|y_1|) + b(|x_2|-|y_2|) = 60a - 66b = 0$$
 lässt sich lösen mit $a=11;\, b=10$ also: 
@@ -105,5 +107,13 @@ $$y_1^{11}\cdot y_2^{10} = a^{11}\cdot a^{670} = a^{681}$$
 
 Bei $I_2$ existiert keine lösung denn das einzige Paar was den gleichen Suffix hat ist das Paar $i=1:\,(b,ab)$, also müsste die Sequenz auf den Paar enden.\\
 Dies heißt, dass auch das obere wort auf $ab$ enden muss.\\
-Da es kein $i\in\{1,2,3,4\}$ gibt wobei $x_i$ auf $a$ endet, kann keine Wort existieren $x_i\cdot x_1$ was auf $ab$ enden und somit $y_1$ als Suffix übereinstimmen kann.
+Da es kein $i\in\{1,2,3,4\}$ gibt wobei $x_i$ auf $a$ endet, kann keine Wort existieren $x_i\cdot x_1$ was auf $ab$ endet und somit $y_1$ als Suffix übereinstimmen kann.
+  \item[(b)] Unter dieser Beschränkung gilt: 
+  $$x_{i_1} \cdots x_{i_n} = 0^{a_{i_1}}1^{b_{i_1}}\cdots 0^{a_{i_n}}1^{b_{i_n}}$$
+  $$y_{i_1} \cdots y_{i_n} = 0^{a'_{i_1}}1^{b'_{i_1}}\cdots 0^{a'_{i_n}}1^{b'_{i_n}}$$
+  Da $a_{i_1},b_{i_1},a'_{i_1},b'_{i_1}\geq 1$ können die Sequenzen nur gleich sein falls $a_i = a'_i$ und $b_i = b'_i$ und somit $x_i = y_i$ für alle $i\in \{i_1,...,i_n\}$.
+  Es existiert also eine Lösung genau dann, wenn mindestens ein Paar $(x_i, y_i)$ existiert mit $x_i = y_i$. Somit kann man das PCP entscheiden, indem eine Turingmaschine durch
+  alle Paare des PCPs geht und 1 ausgibt falls $x_i=y_i$ und 0 falls keiner der Paare die Bedingung erfüllt.
+  \item[(c)]
+\end{enumerate}
 \end{document}
