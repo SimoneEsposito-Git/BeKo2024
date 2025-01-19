@@ -77,7 +77,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
-\title{4. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
+\title{6. Hausaufgabe im Modul \\ \glqq Berechenbarkeit \& Komplexität\grqq} % hier bitte die Nummer der Hausaufgabe eintragen
 \author{Gruppe HA-EH-Fr-10-12-MA544-3} % Hier bitte den Namen Ihrer Gruppe (in ISIS) einfügen
 
 \begin{document}
@@ -94,8 +94,8 @@ Aus Kapitel 8, Folie 17 kennen wir $H_0 := \{w\vert w\# \in H\}$ wobei $H\leq H_
 Ähnlich wie Kapitel 8, Folie 14: bei Eingabe $w$ berechnet $f$ das Codewort einer Maschine $M'$, die wie $M_w$ arbeitet, 
 aber in einen Endzustand übergeht, sobald $M_w$ hält (egal ob akzeptierend oder ablehnend).
 Also $H_0\leq A_0$. Somit ist $A_0$ unentscheidbar.
-\vspace{30pt}\\
-Aufgabe 2:\quad \textsc{\textbf{PCP}}\\
+\newpage
+Aufgabe 2:\quad \textsc{\textbf{PCP}}
 
 \begin{enumerate}
   \item[(a)] 
@@ -114,6 +114,15 @@ Da es kein $i\in\{1,2,3,4\}$ gibt wobei $x_i$ auf $a$ endet, kann keine Wort exi
   Da $a_{i_1},b_{i_1},a'_{i_1},b'_{i_1}\geq 1$ können die Sequenzen nur gleich sein falls $a_i = a'_i$ und $b_i = b'_i$ und somit $x_i = y_i$ für alle $i\in \{i_1,...,i_n\}$.
   Es existiert also eine Lösung genau dann, wenn mindestens ein Paar $(x_i, y_i)$ existiert mit $x_i = y_i$. Somit kann man das PCP entscheiden, indem eine Turingmaschine durch
   alle Paare des PCPs geht und 1 ausgibt falls $x_i=y_i$ und 0 falls keiner der Paare die Bedingung erfüllt.
-  \item[(c)]
+  \item[(c)] Wir zeigen $PCP\leq H_0$ durch Konstruktion einer Reduktion $f$ von $PCP$ auf $H_0$.
+  
+  Bei Eingabe eines Wortes $w$ aus PCP, berechnet $f$ das Codewort einer Maschine $M'$, die zunächst das Wort $w$ auf dem Band erzeugt
+  und dann wie $M_{PCP}$ arbeitet (also $M_{PCP}$ hält auf $w\Leftrightarrow M'$ hält auf $\epsilon$). Bei allen anderen Eingaben gibt $f$ eine ungültige Kodierung aus, z.B. 0.
+
+  Es gilt für alle Wörter $w\in(\Sigma^\ast\times\Sigma^\ast)^\ast$ eines endliches Alphabets $\Sigma$
+  \begin{align*}
+    w \in PCP &\Leftrightarrow M_{PCP} \text{ hält auf } w\\
+    &\Leftrightarrow M' \text{ hält auf }\epsilon\Leftrightarrow f(w)\in H_0
+  \end{align*}
 \end{enumerate}
 \end{document}
